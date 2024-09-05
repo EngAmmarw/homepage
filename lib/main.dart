@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
 import 'screens/home_screen.dart';
-import 'utils/app_theme.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(const BankingApp());
+  runApp(MyApp());
 }
 
-class BankingApp extends StatelessWidget {
-  const BankingApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Banking App UI',
-      theme: AppTheme.themeData, // Use a separate theme file
-      home: const HomeScreen(),
+      title: 'Flutter App',
+      theme: ThemeData(
+        primaryColor: Color.fromARGB(
+            255, 68, 18, 78), // Set the primary color to the deep purple color
+      ),
+      home: Splashscreen(),
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/signup': (context) => SignupScreen(),
+        '/home': (context) => HomeScreen(),
+      },
     );
   }
 }

@@ -167,7 +167,7 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.deepPurple,
+        selectedItemColor: Color.fromARGB(255, 68, 18, 78),
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -179,7 +179,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.transfer_within_a_station),
+        child: Icon(Icons.currency_exchange_outlined),
         onPressed: () {
           // Navigate to the transfer money screen
           Navigator.push(
