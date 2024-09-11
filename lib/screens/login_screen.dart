@@ -111,8 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Color.fromARGB(255, 68, 18, 78), // Deep purple color
+                      backgroundColor: Color(0xFF44124E), // Deep purple color
                       padding: EdgeInsets.symmetric(vertical: 16.0),
                       minimumSize: Size(double.infinity, 50),
                     ),

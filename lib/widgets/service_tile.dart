@@ -15,7 +15,7 @@ class ServiceTile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 40, color: Color.fromARGB(255, 68, 18, 78)),
+            Icon(icon, size: 40, color: const Color.fromARGB(255, 68, 18, 78)),
             const SizedBox(height: 16),
             Text(title, style: const TextStyle(fontSize: 16)),
           ],

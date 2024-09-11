@@ -7,6 +7,18 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  String _selectedLanguage = 'en'; // Default to English
+  bool _isPasswordVisible = false; // Track password visibility
+  bool _isConfirmPasswordVisible = false; // Track confirm password visibility
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +49,67 @@ class _SignupScreenState extends State<SignupScreen> {
               key: _formKey,
               child: Column(
                 children: [
+                  // Username Field
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Full Name',
-                      hintText: 'Enter your name',
+                      labelText: 'Username',
+                      hintText: 'Enter your username',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
+                        return 'Please enter a username';
+                      } else if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                        return 'Only alphabets are allowed';
                       }
                       return null;
                     },
                   ),
                   SizedBox(height: 16),
+
+                  // Firstname Field
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'First Name',
+                      hintText: 'Enter your first name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your first name';
+                      } else if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                        return 'Only alphabets are allowed';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16),
+
+                  // Lastname Field
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Last Name',
+                      hintText: 'Enter your last name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your last name';
+                      } else if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                        return 'Only alphabets are allowed';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16),
+
+                  // Email Field
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Email Address',
@@ -73,7 +130,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     },
                   ),
                   SizedBox(height: 16),
+
+                  // Password Field
+                  // Password Field
                   TextFormField(
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       hintText: 'Enter your password',
@@ -81,11 +142,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.visibility_off),
-                        onPressed: () {},
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
                       ),
                     ),
-                    obscureText: true,
+                    obscureText:
+                        !_isPasswordVisible, // Toggle password visibility
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a password';
@@ -95,7 +165,72 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 16),
+
+// Confirm Password Field
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      hintText: 'Confirm your password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isConfirmPasswordVisible =
+                                !_isConfirmPasswordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    obscureText:
+                        !_isConfirmPasswordVisible, // Toggle confirm password visibility
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      } else if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16),
+
+                  // Language Selection Dropdown
+                  DropdownButtonFormField<String>(
+                    value: _selectedLanguage,
+                    decoration: InputDecoration(
+                      labelText: 'Preferred Language',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    items: [
+                      DropdownMenuItem(value: 'en', child: Text('English')),
+                      DropdownMenuItem(value: 'ar', child: Text('Arabic')),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedLanguage = value!;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please select a language';
+                      }
+                      return null;
+                    },
+                  ),
                   SizedBox(height: 32),
+
+                  // Sign Up Button
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -105,13 +240,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Text(
                       'Sign Up',
                       style: TextStyle(
-                        fontSize: 20, // Set font size to make text bigger
-                        color: Colors.white, // Set text color to white
+                        fontSize: 20,
+                        color: Colors.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Color.fromARGB(255, 68, 18, 78), // Deep purple color
+                      backgroundColor: Color.fromARGB(255, 68, 18, 78),
                       padding: EdgeInsets.symmetric(vertical: 16.0),
                       minimumSize: Size(double.infinity, 50),
                     ),

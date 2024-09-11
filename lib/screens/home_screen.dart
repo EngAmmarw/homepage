@@ -1,9 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:homepage/screens/bank_account_screen.dart';
+import 'package:homepage/screens/more_screen.dart';
+import 'package:homepage/screens/my_cards_screen.dart';
+import 'package:homepage/screens/transaction_page.dart'; // Import the TransactionPage
+import 'package:homepage/screens/transfer_money_screen.dart';
+import 'package:homepage/widgets/transaction_item.dart';
 import '../widgets/credit_card_widget.dart';
 import '../widgets/service_tile.dart';
+import 'statistics_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    HomeScreen(), // This will cause an issue. Replace with the actual Home widget if needed
+    MyCardScreen(),
+    StatisticsScreen(),
+    MyAccountScreen(),
+    MoreScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => _screens[index],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +45,11 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0), // Set a custom height
+        preferredSize: const Size.fromHeight(100.0), // Set a custom height
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
+          automaticallyImplyLeading: false, // Remove the back button
           flexibleSpace: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
@@ -44,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         "Ammar!",
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                            fontSize: 18, fontWeight: FontWeight.bold),
                         overflow: TextOverflow
                             .ellipsis, // Prevent overflow by ellipsis
                       ),
@@ -79,7 +114,9 @@ class HomeScreen extends StatelessWidget {
                       cardName: "X-Card",
                       balance: "\$4,664.63", // Mock balance data
                       lastDigits: "2468",
-                      width: screenWidth * 0.75, // Pass responsive width
+                      width: screenWidth * 0.75,
+                      imagePath:
+                          'assets/cardimage.png', // Pass responsive width
                     ),
                     const SizedBox(width: 16),
                     CreditCardWidget(
@@ -87,6 +124,8 @@ class HomeScreen extends StatelessWidget {
                       balance: "\$2,664.63", // Mock balance data
                       lastDigits: "7897",
                       width: screenWidth * 0.75, // Pass responsive width
+                      imagePath:
+                          'assets/cardimage.png', // Pass responsive width
                     ),
                   ],
                 ),
@@ -115,50 +154,75 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              Text(
-                "Incoming Transactions",
-                style: TextStyle(
-                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Incoming Transactions",
+                    style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TransactionPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("See All"),
+                  ),
+                ],
               ),
-              // Placeholder for incoming transactions
-              ListTile(
-                title: Text("Incoming Transaction 1"),
-                subtitle: Text("Details of the transaction"),
-                trailing: Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Navigate to incoming transactions details
-                },
+              TransactionItem(
+                icon: Icons.apple,
+                title: 'Apple Store',
+                subtitle: '4 Sep 2024 \n 12:32 AM',
+                amount: '- \$5,99',
               ),
-              ListTile(
-                title: Text("Incoming Transaction 2"),
-                subtitle: Text("Details of the transaction"),
-                trailing: Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Navigate to incoming transactions details
-                },
+              TransactionItem(
+                icon: Icons.music_note,
+                title: 'Spotify',
+                subtitle: '4 Sep 2024 \n 12:32 AM',
+                amount: '- \$12,99',
               ),
               const SizedBox(height: 16),
-              Text(
-                "Outgoing Transactions",
-                style: TextStyle(
-                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Outgoing Transactions",
+                    style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TransactionPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("See All"),
+                  ),
+                ],
               ),
               // Placeholder for outgoing transactions
-              ListTile(
-                title: Text("Outgoing Transaction 1"),
-                subtitle: Text("Details of the transaction"),
-                trailing: Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Navigate to outgoing transactions details
-                },
+              TransactionItem(
+                icon: Icons.movie,
+                title: 'Netflix',
+                subtitle: '4 Sep 2024 \n 12:32 AM',
+                amount: '- \$5,99',
               ),
-              ListTile(
-                title: Text("Outgoing Transaction 2"),
-                subtitle: Text("Details of the transaction"),
-                trailing: Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Navigate to outgoing transactions details
-                },
+              TransactionItem(
+                icon: Icons.shopping_cart_sharp,
+                title: 'Amazon',
+                subtitle: '4 Sep 2024 \n 12:32 AM',
+                amount: '- \$12,99',
               ),
               const SizedBox(height: 24),
             ],
@@ -166,72 +230,33 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 68, 18, 78),
+        selectedItemColor: const Color.fromARGB(255, 68, 18, 78),
         unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
+              icon: Icon(Icons.credit_card), label: "My Card"),
+          BottomNavigationBarItem(
               icon: Icon(Icons.bar_chart), label: "Statistics"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.credit_card), label: "My Card"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              icon: Icon(Icons.account_balance), label: "My Account"),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.currency_exchange_outlined),
         onPressed: () {
-          // Navigate to the transfer money screen
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    TransferMoneyScreen()), // Make sure to define TransferMoneyScreen
+              builder: (context) =>
+                  TransferMoneyScreen(), // Make sure to define TransferMoneyScreen
+            ),
           );
         },
-      ),
-    );
-  }
-
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout?'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Logout'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(
-                    '/login'); // Replace with actual route
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-// Define TransferMoneyScreen here or import from another file
-class TransferMoneyScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Transfer Money'),
-      ),
-      body: Center(
-        child: Text('Transfer Money Screen'),
       ),
     );
   }

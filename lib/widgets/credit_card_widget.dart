@@ -5,6 +5,8 @@ class CreditCardWidget extends StatelessWidget {
   final String balance;
   final String lastDigits;
   final double? width; // Add width parameter
+  final double? height; // Height parameter
+  final String imagePath; // Add imagePath parameter for background image
 
   const CreditCardWidget({
     super.key,
@@ -12,15 +14,22 @@ class CreditCardWidget extends StatelessWidget {
     required this.balance,
     required this.lastDigits,
     this.width, // Initialize width
+    this.height, // Initialize height
+    required this.imagePath, // Initialize imagePath
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width ?? 300, // Use provided width or default to 300
+      height: height ?? 200, // Use provided height or default to 200
+
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        image: DecorationImage(
+          image: AssetImage(imagePath), // Set the background image
+          fit: BoxFit.cover, // Adjust the image to cover the container
+        ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -38,14 +47,29 @@ class CreditCardWidget extends StatelessWidget {
           children: [
             Text(
               cardName,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 248, 248, 248),
+              ),
             ),
             const SizedBox(height: 8),
+            const Spacer(),
+            const Text(
+              "Balance",
+              style: TextStyle(
+                  fontSize: 16, color: Color.fromARGB(255, 190, 188, 188)),
+            ),
             Text(
               balance,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 248, 248, 248),
+              ),
             ),
             const SizedBox(height: 8),
+            const Spacer(),
             Text(
               "**** $lastDigits",
               style: const TextStyle(fontSize: 16, color: Colors.grey),

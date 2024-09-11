@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:homepage/screens/congrats_screen.dart';
+import 'package:homepage/screens/transaction_page.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'ByteBankers App',
       theme: ThemeData(
-        primaryColor: Color.fromARGB(
+        primaryColor: const Color.fromARGB(
             255, 68, 18, 78), // Set the primary color to the deep purple color
       ),
-      home: Splashscreen(),
+      home: const Splashscreen(),
       routes: {
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/signup': (context) => SignupScreen(),
-        '/home': (context) => HomeScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/con': (context) => const CongratsScreen(),
+        '/transaction': (context) => TransactionPage(),
       },
     );
   }
