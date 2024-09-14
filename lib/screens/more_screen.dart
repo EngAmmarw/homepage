@@ -5,6 +5,8 @@ import 'package:homepage/screens/my_cards_screen.dart';
 import 'package:homepage/screens/statistics_screen.dart';
 
 class MoreScreen extends StatefulWidget {
+  const MoreScreen({super.key});
+
   @override
   _MoreScreenState createState() => _MoreScreenState();
 }
@@ -14,11 +16,11 @@ class _MoreScreenState extends State<MoreScreen> {
 
   // List of screens for navigation
   final List<Widget> _screens = [
-    HomeScreen(),
-    MyCardScreen(),
-    StatisticsScreen(),
-    MyAccountScreen(),
-    MoreScreen(),
+    const HomeScreen(),
+    const MyCardScreen(),
+    const StatisticsScreen(),
+    const MyAccountScreen(),
+    const MoreScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -35,97 +37,97 @@ class _MoreScreenState extends State<MoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('More'),
+        title: const Text('More'),
       ),
       body: ListView(
         children: [
           // Profile Setting Section
-          ListTile(
+          const ListTile(
             title: Text(
               'Profile Setting',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
-            title: Text('Personal Info'),
+            title: const Text('Personal Info'),
             onTap: () {
               // Navigate to Personal Info screen
             },
           ),
           ListTile(
-            title: Text('Notification Preference'),
+            title: const Text('Notification Preference'),
             onTap: () {
               // Navigate to Notification Preference screen
             },
           ),
           ListTile(
-            title: Text('Security Setting'),
+            title: const Text('Security Setting'),
             onTap: () {
               // Navigate to Security Setting screen
             },
           ),
           ListTile(
-            title: Text('Language & Theme'),
+            title: const Text('Language & Theme'),
             onTap: () {
               // Navigate to Language & Theme screen
             },
           ),
-          Divider(),
+          const Divider(),
           // Services Section
-          ListTile(
+          const ListTile(
             title: Text(
               'Services',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
-            title: Text('Loans'),
+            title: const Text('Loans'),
             onTap: () {
               // Navigate to Loans screen
             },
           ),
           ListTile(
-            title: Text('Investments'),
+            title: const Text('Investments'),
             onTap: () {
               // Navigate to Investments screen
             },
           ),
           ListTile(
-            title: Text('Insurance'),
+            title: const Text('Insurance'),
             onTap: () {
               // Navigate to Insurance screen
             },
           ),
-          Divider(),
+          const Divider(),
           // Customer Support Section
-          ListTile(
+          const ListTile(
             title: Text(
               'Customer Support',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
-            title: Text('FAQs'),
+            title: const Text('FAQs'),
             onTap: () {
               // Navigate to FAQs screen
             },
           ),
           ListTile(
-            title: Text('Contact Us'),
+            title: const Text('Contact Us'),
             onTap: () {
               // Navigate to Contact Us screen
             },
           ),
           ListTile(
-            title: Text('Feedback Form'),
+            title: const Text('Feedback Form'),
             onTap: () {
               // Navigate to Feedback Form screen
             },
           ),
-          Divider(),
+          const Divider(),
           // About Us Section
           ListTile(
-            title: Text(
+            title: const Text(
               'About Us',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -133,10 +135,10 @@ class _MoreScreenState extends State<MoreScreen> {
               // Navigate to About Us screen
             },
           ),
-          Divider(),
+          const Divider(),
           // Logout
           ListTile(
-            title: Center(
+            title: const Center(
               child: Text(
                 'Logout',
                 style: TextStyle(
@@ -154,7 +156,7 @@ class _MoreScreenState extends State<MoreScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 68, 18, 78),
+        selectedItemColor: const Color.fromARGB(255, 68, 18, 78),
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
         items: const [

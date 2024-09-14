@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FilterTransactions extends StatefulWidget {
+  const FilterTransactions({super.key});
+
   @override
   _FilterTransactionsState createState() => _FilterTransactionsState();
 }
@@ -16,12 +18,13 @@ class _FilterTransactionsState extends State<FilterTransactions> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Date Range:'),
-          SizedBox(height: 10),
+          const Text('Date Range:'),
+          const SizedBox(height: 10),
           // You can use DatePicker here for actual implementation
-          ElevatedButton(onPressed: () {}, child: Text('Select Date Range')),
+          ElevatedButton(
+              onPressed: () {}, child: const Text('Select Date Range')),
 
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             children: [
               Checkbox(
@@ -32,12 +35,12 @@ class _FilterTransactionsState extends State<FilterTransactions> {
                   });
                 },
               ),
-              Text('Transaction Type'),
+              const Text('Transaction Type'),
             ],
           ),
 
-          SizedBox(height: 20),
-          Text('Amount Range:'),
+          const SizedBox(height: 20),
+          const Text('Amount Range:'),
           RangeSlider(
             values: _currentRangeValues,
             min: 0,
@@ -57,8 +60,8 @@ class _FilterTransactionsState extends State<FilterTransactions> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(onPressed: () {}, child: Text('Apply')),
-              ElevatedButton(onPressed: () {}, child: Text('Reset')),
+              ElevatedButton(onPressed: () {}, child: const Text('Apply')),
+              ElevatedButton(onPressed: () {}, child: const Text('Reset')),
             ],
           ),
         ],

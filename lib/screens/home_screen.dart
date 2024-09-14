@@ -8,6 +8,8 @@ import 'package:homepage/widgets/transaction_item.dart';
 import '../widgets/credit_card_widget.dart';
 import '../widgets/service_tile.dart';
 import 'statistics_screen.dart';
+// Other imports remain the same
+import 'package:homepage/screens/profile_screen.dart'; // Make sure to import your profile screen
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,11 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    HomeScreen(), // This will cause an issue. Replace with the actual Home widget if needed
-    MyCardScreen(),
-    StatisticsScreen(),
-    MyAccountScreen(),
-    MoreScreen(),
+    const HomeScreen(), // Replace with the actual Home widget if needed
+    const MyCardScreen(),
+    const StatisticsScreen(),
+    const MyAccountScreen(),
+    const MoreScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -57,11 +59,23 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment:
                   CrossAxisAlignment.center, // Center vertically
               children: [
-                // Profile Picture
-                const CircleAvatar(
-                  radius: 24, // Adjust the size as needed
-                  backgroundImage: AssetImage(
-                      'assets/P_TECH.png'), // Update with your asset path
+                // Profile Picture with GestureDetector to handle tap
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to ProfileScreen when tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const ProfileScreen(), // Define your profile screen widget
+                      ),
+                    );
+                  },
+                  child: const CircleAvatar(
+                    radius: 24, // Adjust the size as needed
+                    backgroundImage: AssetImage(
+                        'assets/P_TECH.png'), // Update with your asset path
+                  ),
                 ),
                 const SizedBox(width: 16), // Spacing between profile and text
                 // Greeting Text
@@ -76,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: screenWidth * 0.04,
                             color: Colors.grey[600]),
                       ),
-                      Text(
+                      const Text(
                         "Ammar!",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -89,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Spacer(), // Pushes the notification icon to the right
                 IconButton(
                   iconSize: 30.0, // Set the size of the icon
-                  icon: Icon(Icons.notifications, color: Colors.black),
+                  icon: const Icon(Icons.notifications, color: Colors.black),
                   onPressed: () {
                     // Handle notification icon press
                   },
@@ -131,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Divider(color: Colors.grey),
+              const Divider(color: Colors.grey),
               const SizedBox(height: 16),
               Text(
                 "Quick Actions",
@@ -168,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TransactionPage(),
+                          builder: (context) => const TransactionPage(),
                         ),
                       );
                     },
@@ -176,13 +190,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              TransactionItem(
+              const TransactionItem(
                 icon: Icons.apple,
                 title: 'Apple Store',
                 subtitle: '4 Sep 2024 \n 12:32 AM',
                 amount: '- \$5,99',
               ),
-              TransactionItem(
+              const TransactionItem(
                 icon: Icons.music_note,
                 title: 'Spotify',
                 subtitle: '4 Sep 2024 \n 12:32 AM',
@@ -203,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TransactionPage(),
+                          builder: (context) => const TransactionPage(),
                         ),
                       );
                     },
@@ -212,13 +226,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               // Placeholder for outgoing transactions
-              TransactionItem(
+              const TransactionItem(
                 icon: Icons.movie,
                 title: 'Netflix',
                 subtitle: '4 Sep 2024 \n 12:32 AM',
                 amount: '- \$5,99',
               ),
-              TransactionItem(
+              const TransactionItem(
                 icon: Icons.shopping_cart_sharp,
                 title: 'Amazon',
                 subtitle: '4 Sep 2024 \n 12:32 AM',
@@ -247,13 +261,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.currency_exchange_outlined),
+        child: const Icon(Icons.currency_exchange_outlined),
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  TransferMoneyScreen(), // Make sure to define TransferMoneyScreen
+                  const PaymentScreen(), // Make sure to define TransferMoneyScreen
             ),
           );
         },

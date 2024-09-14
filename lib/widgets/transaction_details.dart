@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class TransactionDetails extends StatelessWidget {
-  final String transactionId = "12345";
-  final String amount = "45.8";
-  final String date = "8/9/2024";
-  final String type = "Online Purchase";
-  final String payee = "Amazon";
-  final String note = "Purchased electronics";
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final String amount;
+
+  const TransactionDetails({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.amount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +21,24 @@ class TransactionDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Transaction ID: $transactionId'),
-          Text('Amount: $amount'),
-          Text('Date: $date'),
-          Text('Type: $type'),
-          Text('Payee: $payee'),
-          Text('Note: $note'),
-          SizedBox(height: 20),
+          Text('Transaction: $title',
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
+          Text('Amount: $amount', style: const TextStyle(fontSize: 16)),
+          const SizedBox(height: 10),
+          Text('Date: $subtitle', style: const TextStyle(fontSize: 16)),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(onPressed: () {}, child: Text('Close')),
-              ElevatedButton(onPressed: () {}, child: Text('Edit')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close')),
+              ElevatedButton(
+                  onPressed: () {}, child: const Text('Report an Issue')),
             ],
           ),
         ],

@@ -1,5 +1,6 @@
-// user_model.dart
-class UserModel {
+// Models/signup_request.dart
+
+class SignupRequest {
   final String username;
   final String password;
   final String firstname;
@@ -7,7 +8,7 @@ class UserModel {
   final String email;
   final String language;
 
-  UserModel({
+  SignupRequest({
     required this.username,
     required this.password,
     required this.firstname,
@@ -18,12 +19,12 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "username": username,
-      "password": password,
-      "firstname": firstname,
-      "lastname": lastname,
-      "email": email,
-      "language": language,
+      'username': username,
+      'password': password,
+      'firstname': firstname,
+      'lastname': lastname,
+      'email': email,
+      'language': language,
     };
   }
 }

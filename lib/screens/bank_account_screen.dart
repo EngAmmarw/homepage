@@ -5,19 +5,14 @@ import 'package:homepage/screens/statistics_screen.dart';
 import 'package:homepage/screens/more_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
+  const MyAccountScreen({super.key});
+
   @override
   _MyAccountScreenState createState() => _MyAccountScreenState();
 }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
   int _currentIndex = 3; // Set initial index to Accounts
-  final List<Widget> _screens = [
-    HomeScreen(),
-    MyCardScreen(),
-    StatisticsScreen(),
-    MyAccountScreen(),
-    MoreScreen(),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,19 +22,19 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
         break;
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyCardScreen()),
+          MaterialPageRoute(builder: (context) => const MyCardScreen()),
         );
         break;
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => StatisticsScreen()),
+          MaterialPageRoute(builder: (context) => const StatisticsScreen()),
         );
         break;
       case 3:
@@ -48,7 +43,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       case 4:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MoreScreen()),
+          MaterialPageRoute(builder: (context) => const MoreScreen()),
         );
         break;
     }
@@ -58,34 +53,34 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Accounts'),
+        title: const Text('Accounts'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context); // Navigate back to the previous screen
           },
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           // Checking Account Card
           Card(
             elevation: 4,
-            margin: EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.symmetric(vertical: 8),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Checking Account',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
-                  Text('Balance: 2,500 \$'),
-                  Text('Last Transaction: -100 \$ (Debit)'),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
+                  const Text('Balance: 2,500 \$'),
+                  const Text('Last Transaction: -100 \$ (Debit)'),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -93,13 +88,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         onPressed: () {
                           // Navigate to View Details screen
                         },
-                        child: Text('View Details'),
+                        child: const Text('View Details'),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           // Navigate to Transfer Money screen
                         },
-                        child: Text('Transfer Money'),
+                        child: const Text('Transfer Money'),
                       ),
                     ],
                   ),
@@ -111,20 +106,20 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           // Saving Account Card
           Card(
             elevation: 4,
-            margin: EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.symmetric(vertical: 8),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Saving Account',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
-                  Text('Balance: 1,000 \$'),
-                  Text('Last Transaction: +100 \$ (Credit)'),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
+                  const Text('Balance: 1,000 \$'),
+                  const Text('Last Transaction: +100 \$ (Credit)'),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,13 +127,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         onPressed: () {
                           // Navigate to View Details screen
                         },
-                        child: Text('View Details'),
+                        child: const Text('View Details'),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           // Navigate to Transfer Money screen
                         },
-                        child: Text('Transfer Money'),
+                        child: const Text('Transfer Money'),
                       ),
                     ],
                   ),
@@ -150,20 +145,20 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           // Loan Account Card
           Card(
             elevation: 4,
-            margin: EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.symmetric(vertical: 8),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Loan Account',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
-                  Text('Balance: -15,000 \$'),
-                  Text('Next Payment: 500 \$ (due)'),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
+                  const Text('Balance: -15,000 \$'),
+                  const Text('Next Payment: 500 \$ (due)'),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -171,13 +166,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         onPressed: () {
                           // Navigate to View Details screen
                         },
-                        child: Text('View Details'),
+                        child: const Text('View Details'),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           // Navigate to Pay Loan screen
                         },
-                        child: Text('Pay Loan'),
+                        child: const Text('Pay Loan'),
                       ),
                     ],
                   ),
@@ -190,7 +185,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 68, 18, 78),
+        selectedItemColor: const Color.fromARGB(255, 68, 18, 78),
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
         items: const [

@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
       home: const Splashscreen(),
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/signup': (context) => SignupScreen(),
+        '/signup': (context) => const SignupScreen(),
         '/home': (context) => const HomeScreen(),
         '/con': (context) => const CongratsScreen(),
-        '/transaction': (context) => TransactionPage(),
+        '/transaction': (context) => const TransactionPage(),
       },
     );
   }

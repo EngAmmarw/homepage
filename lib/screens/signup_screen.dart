@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import '../controllars/signup_controller.dart';
+import '../models/signup_request.dart';
 
 class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
+
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   String _selectedLanguage = 'en'; // Default to English
@@ -15,9 +23,29 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _signUp() {
+    if (_formKey.currentState!.validate()) {
+      final signupRequest = SignupRequest(
+        username: _usernameController.text,
+        password: _passwordController.text,
+        firstname: _firstNameController.text,
+        lastname: _lastNameController.text,
+        email: _emailController.text,
+        language: _selectedLanguage,
+      );
+
+      final signupController = SignupController(context: context);
+      signupController.register(signupRequest);
+    }
   }
 
   @override
@@ -27,30 +55,31 @@ class _SignupScreenState extends State<SignupScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Create Account',
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            SizedBox(height: 32),
+            const SizedBox(height: 8),
+            const SizedBox(height: 32),
             Form(
               key: _formKey,
               child: Column(
                 children: [
                   // Username Field
                   TextFormField(
+                    controller: _usernameController,
                     decoration: InputDecoration(
                       labelText: 'Username',
                       hintText: 'Enter your username',
@@ -67,10 +96,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Firstname Field
                   TextFormField(
+                    controller: _firstNameController,
                     decoration: InputDecoration(
                       labelText: 'First Name',
                       hintText: 'Enter your first name',
@@ -87,10 +117,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Lastname Field
                   TextFormField(
+                    controller: _lastNameController,
                     decoration: InputDecoration(
                       labelText: 'Last Name',
                       hintText: 'Enter your last name',
@@ -107,10 +138,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Email Field
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email Address',
                       hintText: 'Enter your email address',
@@ -129,9 +161,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
-                  // Password Field
                   // Password Field
                   TextFormField(
                     controller: _passwordController,
@@ -165,9 +196,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
-// Confirm Password Field
+                  // Confirm Password Field
                   TextFormField(
                     controller: _confirmPasswordController,
                     decoration: InputDecoration(
@@ -201,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Language Selection Dropdown
                   DropdownButtonFormField<String>(
@@ -212,7 +243,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    items: [
+                    items: const [
                       DropdownMenuItem(value: 'en', child: Text('English')),
                       DropdownMenuItem(value: 'ar', child: Text('Arabic')),
                     ],
@@ -228,37 +259,33 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
 
                   // Sign Up Button
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, '/login');
-                      }
-                    },
-                    child: Text(
+                    onPressed: _signUp,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: const Text(
                       'Sign Up',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 68, 18, 78),
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      minimumSize: Size(double.infinity, 50),
-                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Already have an account? Sign In'),
+              child: const Text('Already have an account? Sign In'),
             ),
           ],
         ),

@@ -6,7 +6,7 @@ import 'package:homepage/widgets/credit_card_widget.dart';
 import 'package:homepage/screens/home_screen.dart'; // Import your other screens
 import 'package:homepage/screens/statistics_screen.dart';
 
-void main() => runApp(MyCardScreen());
+void main() => runApp(const MyCardScreen());
 
 class MyCardScreen extends StatefulWidget {
   const MyCardScreen({super.key});
@@ -26,7 +26,7 @@ class _MyCardScreenState extends State<MyCardScreen> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
         break;
       case 1:
@@ -35,19 +35,19 @@ class _MyCardScreenState extends State<MyCardScreen> {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => StatisticsScreen()),
+          MaterialPageRoute(builder: (context) => const StatisticsScreen()),
         );
         break;
       case 3:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyAccountScreen()),
+          MaterialPageRoute(builder: (context) => const MyAccountScreen()),
         );
         break;
       case 4:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MoreScreen()),
+          MaterialPageRoute(builder: (context) => const MoreScreen()),
         );
         break;
     }

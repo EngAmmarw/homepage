@@ -13,7 +13,7 @@ class CongratsScreen extends StatelessWidget {
           children: [
             const Icon(
               Icons.check_circle,
-              color: Colors.lightBlueAccent,
+              color: Color.fromARGB(255, 68, 18, 78),
               size: 100,
             ),
             const SizedBox(height: 20),
@@ -21,7 +21,7 @@ class CongratsScreen extends StatelessWidget {
               'Congrats!',
               style: TextStyle(
                 fontSize: 30,
-                color: Colors.blue,
+                color: Color.fromARGB(255, 68, 18, 78),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,7 +40,7 @@ class CongratsScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    const Color.fromRGBO(33, 150, 243, 1), // Background color
+                    const Color.fromARGB(255, 68, 18, 78), // Background color
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 shape: RoundedRectangleBorder(
