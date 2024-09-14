@@ -63,12 +63,7 @@ class _MyCardScreenState extends State<MyCardScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
-          },
-        ),
+        leading: null,
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),

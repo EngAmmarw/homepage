@@ -55,6 +55,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Statistics'),
+        leading: null,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz)),
         ],

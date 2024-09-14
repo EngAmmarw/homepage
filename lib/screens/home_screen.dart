@@ -1,15 +1,23 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:homepage/screens/bank_account_screen.dart';
-import 'package:homepage/screens/more_screen.dart';
+import 'package:homepage/screens/bills_payment_screen.dart';
+import 'package:homepage/screens/contacts_screen.dart';
+import 'package:homepage/screens/donation_screen.dart';
+import 'package:homepage/screens/e_wallet_screen.dart';
+import 'package:homepage/screens/request_money_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:homepage/models/user.dart'; // Import the User model
+import 'package:homepage/screens/profile_screen.dart';
+import 'package:homepage/widgets/credit_card_widget.dart';
+import 'package:homepage/widgets/service_tile.dart';
+import 'package:homepage/screens/notification_screen.dart';
 import 'package:homepage/screens/my_cards_screen.dart';
-import 'package:homepage/screens/transaction_page.dart'; // Import the TransactionPage
-import 'package:homepage/screens/transfer_money_screen.dart';
-import 'package:homepage/widgets/transaction_item.dart';
-import '../widgets/credit_card_widget.dart';
-import '../widgets/service_tile.dart';
-import 'statistics_screen.dart';
-// Other imports remain the same
-import 'package:homepage/screens/profile_screen.dart'; // Make sure to import your profile screen
+import 'package:homepage/screens/statistics_screen.dart';
+import 'package:homepage/screens/more_screen.dart';
+import 'package:homepage/screens/transaction_page.dart';
+import '../widgets/transaction_item.dart';
+import 'bank_account_screen.dart';
+import 'transfer_money_screen.dart'; // Import PaymentScreen
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,14 +28,48 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  User? user; // User data
+  bool isLoading = true; // For loading state
 
   final List<Widget> _screens = [
-    const HomeScreen(), // Replace with the actual Home widget if needed
+    const HomeScreen(), // Replace with actual Home widget if needed
     const MyCardScreen(),
     const StatisticsScreen(),
     const MyAccountScreen(),
     const MoreScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData(); // Fetch user data when screen is loaded
+  }
+
+  Future<void> _fetchUserData() async {
+    const String apiUrl = 'https://ptechapp-5ab6d15ba23c.herokuapp.com/users';
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          user = User.fromJson(data); // Assign the fetched user data
+          isLoading = false; // Stop loading
+        });
+      } else {
+        // Handle API error
+        setState(() {
+          isLoading = false;
+        });
+        throw Exception('Failed to load user data');
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle network or other errors
+      print('Error fetching user data: $e');
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -47,38 +89,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0), // Set a custom height
+        preferredSize: const Size.fromHeight(100.0), // Set custom height
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          automaticallyImplyLeading: false, // Remove the back button
+          automaticallyImplyLeading: false,
           flexibleSpace: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
             child: Row(
-              crossAxisAlignment:
-                  CrossAxisAlignment.center, // Center vertically
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Profile Picture with GestureDetector to handle tap
                 GestureDetector(
                   onTap: () {
-                    // Navigate to ProfileScreen when tapped
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const ProfileScreen(), // Define your profile screen widget
+                        builder: (context) => const ProfileScreen(),
                       ),
                     );
                   },
                   child: const CircleAvatar(
-                    radius: 24, // Adjust the size as needed
-                    backgroundImage: AssetImage(
-                        'assets/P_TECH.png'), // Update with your asset path
+                    radius: 24, // Adjust size
+                    backgroundImage: AssetImage('assets/P_TECH.png'),
                   ),
                 ),
-                const SizedBox(width: 16), // Spacing between profile and text
-                // Greeting Text
+                const SizedBox(width: 16),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,25 +123,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         "Welcome back,",
                         style: TextStyle(
-                            fontSize: screenWidth * 0.04,
-                            color: Colors.grey[600]),
+                          fontSize: screenWidth * 0.04,
+                          color: Colors.grey[600],
+                        ),
                       ),
-                      const Text(
-                        "Ammar!",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                        overflow: TextOverflow
-                            .ellipsis, // Prevent overflow by ellipsis
+                      Text(
+                        user != null
+                            ? user!.firstName
+                            : "Loading...", // Dynamic name from API
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
-                const Spacer(), // Pushes the notification icon to the right
+                const Spacer(),
                 IconButton(
-                  iconSize: 30.0, // Set the size of the icon
+                  iconSize: 30.0,
                   icon: const Icon(Icons.notifications, color: Colors.black),
                   onPressed: () {
-                    // Handle notification icon press
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationScreen(),
+                      ),
+                    );
                   },
                 ),
               ],
@@ -113,136 +158,210 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator()) // Show loading spinner
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CreditCardWidget(
-                      cardName: "X-Card",
-                      balance: "\$4,664.63", // Mock balance data
-                      lastDigits: "2468",
-                      width: screenWidth * 0.75,
-                      imagePath:
-                          'assets/cardimage.png', // Pass responsive width
+                    const SizedBox(height: 20),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          CreditCardWidget(
+                            cardName: "X-Card",
+                            balance:
+                                "\$${user?.balance ?? '0.00'}", // Dynamic balance from API
+                            lastDigits: "2468",
+                            width: screenWidth * 0.75,
+                            imagePath: 'assets/cardimage.png',
+                          ),
+                          const SizedBox(width: 16),
+                          CreditCardWidget(
+                            cardName: "Y-Card",
+                            balance: "\$2,664.63", // Mock balance
+                            lastDigits: "7897",
+                            width: screenWidth * 0.75,
+                            imagePath: 'assets/cardimage.png',
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(width: 16),
-                    CreditCardWidget(
-                      cardName: "Y-Card",
-                      balance: "\$2,664.63", // Mock balance data
-                      lastDigits: "7897",
-                      width: screenWidth * 0.75, // Pass responsive width
-                      imagePath:
-                          'assets/cardimage.png', // Pass responsive width
+                    const SizedBox(height: 24),
+                    const Divider(color: Colors.grey),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Quick Actions",
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.055,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    const SizedBox(height: 16),
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 1,
+                      children: [
+                        ServiceTile(
+                          icon: Icons.send,
+                          title: "Send",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PaymentScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        ServiceTile(
+                          icon: Icons.request_page,
+                          title: "Request",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    RequestMoneyScreen(), // Define RequestMoneyScreen here
+                              ),
+                            );
+                          },
+                        ),
+                        ServiceTile(
+                          icon: Icons.payment,
+                          title: "Bills",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BillsPaymentScreen(), // Define RequestMoneyScreen here
+                              ),
+                            );
+                          },
+                        ),
+                        ServiceTile(
+                          icon: Icons.contact_mail,
+                          title: "Contact",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ContactsScreen(), // Define RequestMoneyScreen here
+                              ),
+                            );
+                          },
+                        ),
+                        ServiceTile(
+                          icon: Icons.volunteer_activism,
+                          title: "Donation",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DonationScreen(), // Define RequestMoneyScreen here
+                              ),
+                            );
+                          },
+                        ),
+                        ServiceTile(
+                          icon: Icons.account_balance_wallet,
+                          title: "e-Wallet",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EWalletScreen(), // Define RequestMoneyScreen here
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Incoming Transactions",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.05,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TransactionPage(),
+                              ),
+                            );
+                          },
+                          child: const Text("See All"),
+                        ),
+                      ],
+                    ),
+                    // Mock transactions
+                    const TransactionItem(
+                      icon: Icons.swap_horiz,
+                      title: 'Money Transfer',
+                      subtitle: '4 Sep 2024 \n 12:32 AM',
+                      amount: '\$300',
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Outgoing Transactions",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.05,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TransactionPage(),
+                              ),
+                            );
+                          },
+                          child: const Text("See All"),
+                        ),
+                      ],
+                    ),
+                    // Placeholder for outgoing transactions
+                    const TransactionItem(
+                      icon: Icons.movie,
+                      title: 'Netflix',
+                      subtitle: '4 Sep 2024 \n 12:32 AM',
+                      amount: '- \$5.99',
+                    ),
+                    const TransactionItem(
+                      icon: Icons.shopping_cart_sharp,
+                      title: 'Amazon',
+                      subtitle: '4 Sep 2024 \n 12:32 AM',
+                      amount: '- \$12.99',
+                    ),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              const Divider(color: Colors.grey),
-              const SizedBox(height: 16),
-              Text(
-                "Quick Actions",
-                style: TextStyle(
-                    fontSize: screenWidth * 0.055, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 1,
-                children: const [
-                  ServiceTile(icon: Icons.send, title: "Send money"),
-                  ServiceTile(icon: Icons.payment, title: "Pay the bill"),
-                  ServiceTile(icon: Icons.request_page, title: "Request"),
-                  ServiceTile(icon: Icons.contact_mail, title: "Contact"),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Incoming Transactions",
-                    style: TextStyle(
-                        fontSize: screenWidth * 0.05,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TransactionPage(),
-                        ),
-                      );
-                    },
-                    child: const Text("See All"),
-                  ),
-                ],
-              ),
-              const TransactionItem(
-                icon: Icons.apple,
-                title: 'Apple Store',
-                subtitle: '4 Sep 2024 \n 12:32 AM',
-                amount: '- \$5,99',
-              ),
-              const TransactionItem(
-                icon: Icons.music_note,
-                title: 'Spotify',
-                subtitle: '4 Sep 2024 \n 12:32 AM',
-                amount: '- \$12,99',
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Outgoing Transactions",
-                    style: TextStyle(
-                        fontSize: screenWidth * 0.05,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TransactionPage(),
-                        ),
-                      );
-                    },
-                    child: const Text("See All"),
-                  ),
-                ],
-              ),
-              // Placeholder for outgoing transactions
-              const TransactionItem(
-                icon: Icons.movie,
-                title: 'Netflix',
-                subtitle: '4 Sep 2024 \n 12:32 AM',
-                amount: '- \$5,99',
-              ),
-              const TransactionItem(
-                icon: Icons.shopping_cart_sharp,
-                title: 'Amazon',
-                subtitle: '4 Sep 2024 \n 12:32 AM',
-                amount: '- \$12,99',
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        ),
-      ),
+            ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -259,18 +378,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.account_balance), label: "My Account"),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More"),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.currency_exchange_outlined),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  const PaymentScreen(), // Make sure to define TransferMoneyScreen
-            ),
-          );
-        },
       ),
     );
   }

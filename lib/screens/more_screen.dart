@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homepage/screens/account_screen.dart';
 import 'package:homepage/screens/bank_account_screen.dart';
 import 'package:homepage/screens/home_screen.dart'; // Import your other screens
 import 'package:homepage/screens/my_cards_screen.dart';
@@ -38,6 +39,7 @@ class _MoreScreenState extends State<MoreScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('More'),
+        leading: null,
       ),
       body: ListView(
         children: [
@@ -51,7 +53,12 @@ class _MoreScreenState extends State<MoreScreen> {
           ListTile(
             title: const Text('Personal Info'),
             onTap: () {
-              // Navigate to Personal Info screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AccountScreen(),
+                ),
+              );
             },
           ),
           ListTile(
