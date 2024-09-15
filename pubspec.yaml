@@ -71,7 +71,6 @@ flutter:
   assets:
     - assets/P_TECH.png
     - assets/vector.png
-    - assets/cardimage.png
     - assets/card.png
     
 

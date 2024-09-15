@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:homepage/globals/global_variables.dart';
 import 'package:http/http.dart' as http;
 import 'package:homepage/models/user.dart'; // Import the user model
 
@@ -68,7 +69,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           radius: 50,
                           backgroundColor: Colors.blueAccent,
                           child: Text(
-                            "${user?.firstName[0]}${user?.lastName[0]}", // Display user initials
+                            "${GlobalVariables.firstName.toString()} ${GlobalVariables.lastName.toString()}",
                             style: const TextStyle(
                               fontSize: 40,
                               color: Colors.white,
@@ -78,14 +79,14 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          "${user?.firstName} ${user?.lastName}", // Display user's full name
+                          "${GlobalVariables.firstName.toString()} ${GlobalVariables.lastName.toString()}", // Display user's full name
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          user?.email ?? '',
+                          GlobalVariables.email ?? '',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[600],
@@ -114,7 +115,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ListTile(
                           leading: const Icon(Icons.person),
                           title: const Text('First Name'),
-                          subtitle: Text(user?.firstName ?? ''),
+                          subtitle: Text(GlobalVariables.firstName ?? ''),
                           trailing: const Icon(Icons.edit),
                           onTap: () {
                             // Handle edit first name
@@ -124,7 +125,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ListTile(
                           leading: const Icon(Icons.person),
                           title: const Text('Last Name'),
-                          subtitle: Text(user?.lastName ?? ''),
+                          subtitle: Text(GlobalVariables.lastName ?? ''),
                           trailing: const Icon(Icons.edit),
                           onTap: () {
                             // Handle edit last name
@@ -134,7 +135,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ListTile(
                           leading: const Icon(Icons.email),
                           title: const Text('Email'),
-                          subtitle: Text(user?.email ?? ''),
+                          subtitle: Text(GlobalVariables.email ?? ''),
                           trailing: const Icon(Icons.edit),
                           onTap: () {
                             // Handle edit email
@@ -144,7 +145,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ListTile(
                           leading: const Icon(Icons.language),
                           title: const Text('Language'),
-                          subtitle: Text(user?.language ?? ''),
+                          subtitle: Text(GlobalVariables.language ?? ''),
                           trailing: const Icon(Icons.edit),
                           onTap: () {
                             // Handle edit language

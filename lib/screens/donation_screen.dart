@@ -51,7 +51,7 @@ class _DonationScreenState extends State<DonationScreen> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0093C9),
+                Color(0xFF44124E),
                 Color(0xFF374577)
               ], // User preferred colors
               begin: Alignment.topLeft,
@@ -66,7 +66,10 @@ class _DonationScreenState extends State<DonationScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFF0F4F8), Color(0xFFEFF9F0)], // Softer colors
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color(0xFFEFF9F0)
+            ], // Softer colors
           ),
         ),
         child: Column(
@@ -82,7 +85,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       Center(
                         child: Icon(
                           Icons.volunteer_activism,
-                          color: Color(0xFF374577),
+                          color: Color(0xFF44124E),
                           size: 80,
                         ),
                       ),
@@ -239,7 +242,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFF374577),
+                                        backgroundColor: Color(0xFF44124E),
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 15, horizontal: 25),
                                         textStyle: const TextStyle(
@@ -318,7 +321,7 @@ class _DonationScreenState extends State<DonationScreen> {
         });
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF0093C9),
+        backgroundColor: Color(0xFF44124E),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

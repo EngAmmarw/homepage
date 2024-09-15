@@ -57,7 +57,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF00BBFF), // Dark Purple
+                Color(0xFF44124E), // Dark Purple
                 Color(0xFF374577), // Blue
               ],
               begin: Alignment.topLeft,

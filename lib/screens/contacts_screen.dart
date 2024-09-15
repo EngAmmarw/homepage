@@ -77,6 +77,15 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           'Contacts',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -85,7 +94,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0093C9), // Dark Purple
+                Color(0xFF44124E), // Dark Purple
                 Color(0xFF374577), // Blue
               ],
               begin: Alignment.topLeft,
@@ -134,7 +143,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 8.0),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF374577),
+                      color: const Color(0xFF44124E),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: Row(
@@ -241,7 +250,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             ),
           );
         },
-        backgroundColor: const Color(0xFF374577),
+        backgroundColor: const Color(0xFF44124E),
         child: Icon(
           Icons.star,
           color: Color(0xFFFBC02D),
@@ -328,7 +337,7 @@ class ContactDetailsScreen extends StatelessWidget {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0093C9), //
+                Color(0xFF44124E), //
                 Color(0xFF374577), // Blue
               ],
               begin: Alignment.topLeft,

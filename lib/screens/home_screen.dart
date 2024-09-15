@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF0093C9), // Baby Blue
+                  Color(0xFF44124E), // Baby Blue
                   Color(0xFF374577), // Blue
                 ],
                 begin: Alignment.topLeft,
@@ -187,8 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           CreditCardWidget(
                             cardName: "X-Card",
-                            balance:
-                                "\$${GlobalVariables.balance.toString()}", // Dynamic balance from API
+                            balance: "12970", // Dynamic balance from API
                             lastDigits: "2468",
                             width: screenWidth * 0.75,
                             imagePath: 'assets/card.png',

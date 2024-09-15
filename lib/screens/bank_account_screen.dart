@@ -53,132 +53,64 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Accounts'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back to the previous screen
-          },
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF44124E), // Gradient Start
+                Color(0xFF374577), // Gradient End
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: const Text(
+          'Accounts',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          // Checking Account Card
-          Card(
-            elevation: 4,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Checking Account',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text('Balance: 2,500 \$'),
-                  const Text('Last Transaction: -100 \$ (Debit)'),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to View Details screen
-                        },
-                        child: const Text('View Details'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to Transfer Money screen
-                        },
-                        child: const Text('Transfer Money'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          _buildAccountCard(
+            title: 'Checking Account',
+            balance: '2,500 \$',
+            lastTransaction: '-100 \$ (Debit)',
+            onViewDetails: () {
+              // Navigate to View Details
+            },
+            onTransferMoney: () {
+              // Navigate to Transfer Money
+            },
+            icon: Icons.account_balance_wallet,
+            backgroundColor: const Color.fromARGB(255, 151, 221, 219),
           ),
-
-          // Saving Account Card
-          Card(
-            elevation: 4,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Saving Account',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text('Balance: 1,000 \$'),
-                  const Text('Last Transaction: +100 \$ (Credit)'),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to View Details screen
-                        },
-                        child: const Text('View Details'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to Transfer Money screen
-                        },
-                        child: const Text('Transfer Money'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          _buildAccountCard(
+            title: 'Saving Account',
+            balance: '1,000 \$',
+            lastTransaction: '+100 \$ (Credit)',
+            onViewDetails: () {
+              // Navigate to View Details
+            },
+            onTransferMoney: () {
+              // Navigate to Transfer Money
+            },
+            icon: Icons.savings,
+            backgroundColor: const Color.fromARGB(255, 107, 156, 212),
           ),
-
-          // Loan Account Card
-          Card(
-            elevation: 4,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Loan Account',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text('Balance: -15,000 \$'),
-                  const Text('Next Payment: 500 \$ (due)'),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to View Details screen
-                        },
-                        child: const Text('View Details'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to Pay Loan screen
-                        },
-                        child: const Text('Pay Loan'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          _buildAccountCard(
+            title: 'Loan Account',
+            balance: '-15,000 \$',
+            lastTransaction: 'Next Payment: 500 \$ (due)',
+            onViewDetails: () {
+              // Navigate to View Details
+            },
+            onTransferMoney: () {
+              // Navigate to Pay Loan
+            },
+            icon: Icons.attach_money,
+            backgroundColor: const Color.fromARGB(255, 120, 103, 184),
           ),
         ],
       ),
@@ -198,6 +130,78 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               icon: Icon(Icons.account_balance), label: "Accounts"),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More"),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAccountCard({
+    required String title,
+    required String balance,
+    required String lastTransaction,
+    required VoidCallback onViewDetails,
+    required VoidCallback onTransferMoney,
+    required IconData icon,
+    required Color backgroundColor,
+  }) {
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      color: backgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 32, color: Colors.black54),
+                const SizedBox(width: 12),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Balance: $balance',
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
+            ),
+            Text(
+              lastTransaction,
+              style: const TextStyle(fontSize: 16, color: Colors.black45),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: onViewDetails,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text('View Details'),
+                ),
+                ElevatedButton(
+                  onPressed: onTransferMoney,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text('Transfer Money'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

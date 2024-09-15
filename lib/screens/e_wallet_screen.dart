@@ -5,12 +5,26 @@ class EWalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('E-Wallet'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'E-Wallet',
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
+        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0093C9), // Baby Blue
+                Color(0xFF44124E), // Baby Blue
                 Color(0xFF374577), // Blue
               ],
               begin: Alignment.topLeft,
@@ -21,7 +35,10 @@ class EWalletScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.info_outline),
+            icon: Icon(
+              Icons.info_outline,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
             onPressed: () {
               // Add info button functionality here
             },
@@ -45,7 +62,7 @@ class EWalletScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                color: const Color(0xFF374577),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -118,8 +135,8 @@ class EWalletScreen extends StatelessWidget {
         onPressed: () {
           // Add new transaction functionality here
         },
-        backgroundColor: Colors.blueAccent,
-        child: Icon(Icons.add),
+        backgroundColor: const Color(0xFF44124E),
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }

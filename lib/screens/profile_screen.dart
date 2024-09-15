@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:homepage/globals/global_variables.dart';
 import 'package:http/http.dart' as http;
 import 'package:homepage/models/user.dart'; // Import the user model
 
@@ -93,16 +94,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ProfileCard(
                                 label: 'Full Name',
                                 value:
-                                    '${user?.firstName ?? ''} ${user?.lastName ?? ''}'),
+                                    '${GlobalVariables.firstName ?? ''} ${GlobalVariables.lastName ?? ''}'),
                             ProfileCard(
                                 label: 'Email',
-                                value: user?.email ?? 'Loading...'),
+                                value: GlobalVariables.email ?? 'Loading...'),
                             ProfileCard(
                                 label: 'Language',
-                                value: user?.language ?? 'Loading...'),
+                                value:
+                                    GlobalVariables.language ?? 'Loading...'),
                             ProfileCard(
                                 label: 'Balance',
-                                value: '\$${user?.balance ?? '0.00'}'),
+                                value:
+                                    '\$${GlobalVariables.balance ?? '12970'}'),
                           ],
                         ),
                       ),

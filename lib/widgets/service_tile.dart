@@ -29,7 +29,7 @@ class ServiceTile extends StatelessWidget {
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Color(0xFF374577), // baby blue
+                      Color(0xFF44124E), // baby blue
                       Color(0xFF374577), // Light Purple
                     ],
                     begin: Alignment.topLeft,

@@ -58,8 +58,23 @@ class _MyCardScreenState extends State<MyCardScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All Cards"),
-        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF44124E), // Baby Blue
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text(
+          "All Cards",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: false,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -82,26 +97,10 @@ class _MyCardScreenState extends State<MyCardScreen> {
               balance: "\$4,664.63", // Mock balance data
               lastDigits: "2468",
               width: screenWidth, // Pass responsive width
-              height: 175, // Pass desired height
-              imagePath: 'assets/cardimage.png',
+              height: 220, // Pass desired height
+              imagePath: 'assets/card.png',
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Add card functionality
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // Replaces primary
-                foregroundColor: Colors.black, // Replaces onPrimary
-                side: const BorderSide(color: Colors.grey),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              ),
-              child: const Text("Add Card"),
-            ),
           ],
         ),
       ),
@@ -123,13 +122,13 @@ class _MyCardScreenState extends State<MyCardScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF44124E),
         onPressed: () {
           // Add card functionality
         },
         child: const Icon(Icons.add, color: Colors.white),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

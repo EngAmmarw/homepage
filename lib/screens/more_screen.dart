@@ -44,9 +44,20 @@ class _MoreScreenState extends State<MoreScreen> with TickerProviderStateMixin {
               color: Color.fromARGB(255, 255, 255, 255),
               fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
+        centerTitle: false,
         elevation: 0,
-        backgroundColor: const Color(0xFF374577),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF44124E), // Baby Blue
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -178,7 +189,7 @@ class _MoreScreenState extends State<MoreScreen> with TickerProviderStateMixin {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color(0xFF44124E),
         unselectedItemColor: const Color(0xFF374577),
-        backgroundColor: const Color(0xFFEFF9F0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -220,7 +231,7 @@ class _MoreScreenState extends State<MoreScreen> with TickerProviderStateMixin {
                   end: Alignment.bottomRight,
                 )
               : const LinearGradient(
-                  colors: [Color(0xFF374577), Color(0xFF0093C9)],
+                  colors: [Color(0xFF394A85), Color(0xFF394A85)],
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
                 ),
@@ -267,17 +278,4 @@ class _MoreScreenState extends State<MoreScreen> with TickerProviderStateMixin {
   }
 
   // Section title
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Color(0xFF374577),
-        ),
-      ),
-    );
-  }
 }
