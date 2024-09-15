@@ -40,8 +40,25 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Donation'),
-        backgroundColor: Colors.purple,
+        title: const Text(
+          'Make a Donation',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0093C9),
+                Color(0xFF374577)
+              ], // User preferred colors
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
@@ -49,203 +66,210 @@ class _DonationScreenState extends State<DonationScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.purple.shade300, Colors.purple.shade700],
+            colors: [Color(0xFFF0F4F8), Color(0xFFEFF9F0)], // Softer colors
           ),
         ),
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 20),
-              Center(
-                child: Icon(
-                  Icons.volunteer_activism,
-                  color: Colors.white,
-                  size: 100,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Select Category:',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      DropdownButtonFormField<String>(
-                        value: _selectedCategory,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedCategory = newValue;
-                          });
-                        },
-                        items: _buildCategoryItems(),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 12),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Icon(
+                          Icons.volunteer_activism,
+                          color: Color(0xFF374577),
+                          size: 80,
                         ),
-                        validator: (value) =>
-                            value == null ? 'Please select a category' : null,
                       ),
                       const SizedBox(height: 20),
-                      const Text(
-                        'Enter Donation Amount:',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: TextFormField(
-                              controller: _amountController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: 'Amount',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
+                      Card(
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Select a Cause',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF374577),
                                 ),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
                               ),
-                              validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    double.tryParse(value) == null ||
-                                    double.tryParse(value)! <= 0) {
-                                  return 'Enter a valid amount (min \$1)';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            flex: 1,
-                            child: DropdownButtonFormField<String>(
-                              value: _selectedCurrency,
-                              onChanged: (String? newCurrency) {
-                                setState(() {
-                                  _selectedCurrency = newCurrency;
-                                });
-                              },
-                              items: const [
-                                DropdownMenuItem(
-                                  value: 'EGP',
-                                  child: Text('EGP'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'USD',
-                                  child: Text('USD'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'EUR',
-                                  child: Text('EUR'),
-                                ),
-                              ],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Quick Donate:',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 10,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () => setState(() {
-                              _amountController.text = '10';
-                            }),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple.shade300,
-                            ),
-                            child: const Text('\$10'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => setState(() {
-                              _amountController.text = '50';
-                            }),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple.shade300,
-                            ),
-                            child: const Text('\$50'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => setState(() {
-                              _amountController.text = '100';
-                            }),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple.shade300,
-                            ),
-                            child: const Text('\$100'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      _isProcessing
-                          ? const Center(child: CircularProgressIndicator())
-                          : ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
+                              const SizedBox(height: 10),
+                              DropdownButtonFormField<String>(
+                                value: _selectedCategory,
+                                onChanged: (String? newValue) {
                                   setState(() {
-                                    _isProcessing = true;
+                                    _selectedCategory = newValue;
                                   });
-                                  Future.delayed(const Duration(seconds: 2),
-                                      () {
-                                    setState(() {
-                                      _isProcessing = false;
-                                    });
-                                    _showSuccessDialog();
-                                  });
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 209, 209, 209),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 12, horizontal: 24),
-                                textStyle: const TextStyle(
+                                },
+                                items: _buildCategoryItems(),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 15),
+                                ),
+                                validator: (value) => value == null
+                                    ? 'Please select a category'
+                                    : null,
+                              ),
+                              const SizedBox(height: 20),
+                              const Text(
+                                'Enter Donation Amount',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF374577),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: TextFormField(
+                                      controller: _amountController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        labelText: 'Amount',
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 15),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.isEmpty ||
+                                            double.tryParse(value) == null ||
+                                            double.tryParse(value)! <= 0) {
+                                          return 'Enter a valid amount';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    flex: 1,
+                                    child: DropdownButtonFormField<String>(
+                                      value: _selectedCurrency,
+                                      onChanged: (String? newCurrency) {
+                                        setState(() {
+                                          _selectedCurrency = newCurrency;
+                                        });
+                                      },
+                                      items: const [
+                                        DropdownMenuItem(
+                                          value: 'EGP',
+                                          child: Text('EGP'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'USD',
+                                          child: Text('USD'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'EUR',
+                                          child: Text('EUR'),
+                                        ),
+                                      ],
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 15),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              const Text(
+                                'Quick Donate',
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
+                                  color: Color(0xFF374577),
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                elevation: 5,
                               ),
-                              child: const Text('Donate Now'),
-                            ),
+                              const SizedBox(height: 10),
+                              Wrap(
+                                spacing: 10,
+                                children: [
+                                  _buildQuickDonateButton('\$10'),
+                                  _buildQuickDonateButton('\$50'),
+                                  _buildQuickDonateButton('\$100'),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              _isProcessing
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : ElevatedButton(
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            _isProcessing = true;
+                                          });
+                                          Future.delayed(
+                                            const Duration(seconds: 2),
+                                            () {
+                                              setState(() {
+                                                _isProcessing = false;
+                                              });
+                                              _showSuccessDialog();
+                                            },
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xFF374577),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 25),
+                                        textStyle: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        elevation: 5,
+                                      ),
+                                      child: const Center(
+                                          child: Text(
+                                        'Donate Now',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255)),
+                                      )),
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -284,5 +308,26 @@ class _DonationScreenState extends State<DonationScreen> {
         ),
       ),
     ];
+  }
+
+  Widget _buildQuickDonateButton(String amount) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          _amountController.text = amount.replaceAll('\$', '');
+        });
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF0093C9),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Text(
+        amount,
+        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+      ),
+    );
   }
 }

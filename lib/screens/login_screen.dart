@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controllars/login_controller.dart';
+import 'package:homepage/controllars/login_controller.dart';
 import '../models/login_request.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,8 +13,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscureText = true; // For toggling password visibility
-  bool _rememberMe = false; // For the "Remember Me" checkbox
+  bool _obscureText = true;
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: _obscureText, // Toggle password visibility
+                    obscureText: _obscureText,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       hintText: 'Enter your password',
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () {
                           setState(() {
-                            _obscureText = !_obscureText; // Toggle visibility
+                            _obscureText = !_obscureText;
                           });
                         },
                       ),
@@ -121,16 +121,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: _login,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xFF44124E), // Deep purple color
+                      backgroundColor: const Color(0xFF374577),
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       minimumSize: const Size(double.infinity, 50),
                     ),
                     child: const Text(
                       'Login',
                       style: TextStyle(
-                        fontSize: 20, // Set font size to make text bigger
-                        color: Colors.white, // Set text color to white
+                        fontSize: 20,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -13,8 +13,18 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            const Color.fromARGB(255, 68, 18, 78), // Set background color
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0093C9), // Dark Purple
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
@@ -158,8 +168,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      const Color.fromARGB(255, 68, 18, 78), // Button color
+                  backgroundColor: const Color(0xFF374577), // Button color
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(10), // Rounded corners for button

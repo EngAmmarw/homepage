@@ -81,7 +81,18 @@ class _ContactsScreenState extends State<ContactsScreen> {
           'Contacts',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.blue[900],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0093C9), // Dark Purple
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -91,7 +102,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Search contacts',
-                prefixIcon: Icon(Icons.search, color: Colors.blue),
+                prefixIcon: Icon(Icons.search, color: const Color(0xFF44124E)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -111,35 +122,44 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: GestureDetector(
-              onTap: () {
-                _showAddContactDialog(context);
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 74, 21, 95),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 163, 64, 255),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.add, color: Colors.white),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _showAddContactDialog(context);
+                  },
+                  child: Container(
+                    width: 150, // Smaller width
+                    height: 55,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF374577),
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Add Contact',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(Icons.add, color: Colors.black),
+                        ),
+                        const SizedBox(width: 5), // Smaller spacing
+                        const Text(
+                          'Add Contact',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14), // Smaller font
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           SizedBox(height: 10),
@@ -149,7 +169,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 ? Center(
                     child: Text(
                       'No contacts found',
-                      style: TextStyle(fontSize: 18, color: Colors.orange),
+                      style: TextStyle(
+                          fontSize: 18, color: const Color(0xFF374577)),
                     ),
                   )
                 : ListView.builder(
@@ -185,7 +206,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 contact.isFavorite
                                     ? Icons.star
                                     : Icons.star_border,
-                                color: Colors.yellow[700],
+                                color: const Color(0xFFFBC02D),
                               ),
                               onPressed: () {
                                 setState(() {
@@ -220,8 +241,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 74, 21, 95),
-        child: Icon(Icons.star),
+        backgroundColor: const Color(0xFF374577),
+        child: Icon(
+          Icons.star,
+          color: Color(0xFFFBC02D),
+        ),
       ),
     );
   }
@@ -260,7 +284,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
               },
             ),
             ElevatedButton(
-              child: Text('Add'),
+              child: Text(
+                'Add',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
               onPressed: () {
                 if (newName.isNotEmpty && newAccountNumber.isNotEmpty) {
                   setState(() {
@@ -274,7 +301,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
+                backgroundColor: const Color(0xFF374577),
               ),
             ),
           ],
@@ -297,7 +324,18 @@ class ContactDetailsScreen extends StatelessWidget {
           contact.name,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.blue[900],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0093C9), //
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -324,7 +362,7 @@ class ContactDetailsScreen extends StatelessWidget {
                 _showTransferDialog(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 245, 133, 5),
+                backgroundColor: const Color(0xFF44124E),
               ),
               child: Text(
                 'Transfer Money',
@@ -369,13 +407,15 @@ class ContactDetailsScreen extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              child: Text('Transfer'),
+              child: Text(
+                'Transfer',
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 // Handle money transfer logic here
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
+                backgroundColor: const Color.fromARGB(255, 193, 193, 193),
               ),
             ),
           ],
@@ -401,7 +441,18 @@ class FavoritesScreen extends StatelessWidget {
           'Favorite Contacts',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.blue[900],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF44124E), // Dark Purple
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: favoriteContacts.length,

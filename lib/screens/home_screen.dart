@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:homepage/globals/global_variables.dart';
 import 'package:homepage/screens/bills_payment_screen.dart';
 import 'package:homepage/screens/contacts_screen.dart';
 import 'package:homepage/screens/donation_screen.dart';
@@ -89,71 +90,83 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0), // Set custom height
+        preferredSize: const Size.fromHeight(70.0), // Set custom height
         child: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent, // Transparent background
           elevation: 0,
           automaticallyImplyLeading: false,
-          flexibleSpace: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ),
-                    );
-                  },
-                  child: const CircleAvatar(
-                    radius: 24, // Adjust size
-                    backgroundImage: AssetImage('assets/P_TECH.png'),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Welcome back,",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.04,
-                          color: Colors.grey[600],
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF0093C9), // Baby Blue
+                  Color(0xFF374577), // Blue
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0, vertical: 6.0), // Adjust vertical padding
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
                         ),
-                      ),
-                      Text(
-                        user != null
-                            ? user!.firstName
-                            : "Loading...", // Dynamic name from API
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                      );
+                    },
+                    child: const CircleAvatar(
+                      radius: 24, // Adjust size
+                      backgroundImage: AssetImage('assets/P_TECH.png'),
+                    ),
                   ),
-                ),
-                const Spacer(),
-                IconButton(
-                  iconSize: 30.0,
-                  icon: const Icon(Icons.notifications, color: Colors.black),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NotificationScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Welcome back,",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.04,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                        Text(
+                          GlobalVariables.firstName
+                              .toString(), // Static placeholder for the user, // Static placeholder for the user
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    icon: const Icon(Icons.notifications,
+                        color: Color.fromARGB(255, 255, 255, 255)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -175,10 +188,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           CreditCardWidget(
                             cardName: "X-Card",
                             balance:
-                                "\$${user?.balance ?? '0.00'}", // Dynamic balance from API
+                                "\$${GlobalVariables.balance.toString()}", // Dynamic balance from API
                             lastDigits: "2468",
                             width: screenWidth * 0.75,
-                            imagePath: 'assets/cardimage.png',
+                            imagePath: 'assets/card.png',
                           ),
                           const SizedBox(width: 16),
                           CreditCardWidget(
@@ -186,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             balance: "\$2,664.63", // Mock balance
                             lastDigits: "7897",
                             width: screenWidth * 0.75,
-                            imagePath: 'assets/cardimage.png',
+                            imagePath: 'assets/card.png',
                           ),
                         ],
                       ),

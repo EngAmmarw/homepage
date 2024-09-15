@@ -60,7 +60,18 @@ class _BillsPaymentScreenState extends State<BillsPaymentScreen> {
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0093C9), // Dark Purple
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
       ),
@@ -234,7 +245,7 @@ class _BillsPaymentScreenState extends State<BillsPaymentScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+                        backgroundColor: const Color(0xFF374577),
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 30), // Increase padding
                         textStyle: const TextStyle(

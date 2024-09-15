@@ -23,10 +23,26 @@ class ServiceTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon,
-                  size: 40, color: const Color.fromARGB(255, 68, 18, 78)),
+              // Container for icon background
+              Container(
+                padding: const EdgeInsets.all(12), // Padding around the icon
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF374577), // baby blue
+                      Color(0xFF374577), // Light Purple
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ), // Background color
+                  shape: BoxShape.circle, // Circular shape for background
+                ),
+                child: Icon(icon, size: 25, color: Colors.white), // Icon color
+              ),
               const SizedBox(height: 16),
-              Text(title, style: const TextStyle(fontSize: 16)),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.bold)),
             ],
           ),
         ),

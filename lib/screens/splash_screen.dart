@@ -15,7 +15,7 @@ class _SplashscreenState extends State<Splashscreen>
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.of(context).pushReplacementNamed('/login');
     });
   }
@@ -26,7 +26,14 @@ class _SplashscreenState extends State<Splashscreen>
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 68, 18, 78),
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0093C9), // Baby Blue
+              Color(0xFF374577), // Blue
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
         ),
         child: const SafeArea(
           child: Column(

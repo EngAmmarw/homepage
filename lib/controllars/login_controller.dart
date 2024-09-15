@@ -1,5 +1,3 @@
-// Controllers/login_controller.dart
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/login_request.dart';
 import '../models/login_response.dart';
+import '../globals/global_variables.dart';
 
 class LoginController {
   final BuildContext context;
@@ -19,7 +18,6 @@ class LoginController {
         'https://ptechapp-5ab6d15ba23c.herokuapp.com/user/authenticate';
 
     try {
-      // Set loading to true
       isLoading = true;
 
       final response = await http.post(
@@ -37,11 +35,13 @@ class LoginController {
         if (data.success) {
           final userAccountID = data.data!.userAccountID;
 
-          // Save userAccountID to SharedPreferences
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('userAccountID', userAccountID);
 
-          // Navigate to Home page after successful login
+          // Set user data and fetch balance
+          GlobalVariables.setUserData(data.data!);
+          await GlobalVariables.fetchUserBalance();
+
           Navigator.pushReplacementNamed(context, '/home');
         } else {
           _showSnackBar('Login Failed: Something went wrong');
@@ -52,7 +52,6 @@ class LoginController {
     } catch (e) {
       _showSnackBar('Error: $e');
     } finally {
-      // Set loading to false
       isLoading = false;
     }
   }

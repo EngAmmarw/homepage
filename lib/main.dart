@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:homepage/generated/l10n.dart';
 import 'package:homepage/screens/congrats_screen.dart';
 import 'package:homepage/screens/transaction_page.dart';
 import 'screens/login_screen.dart';
@@ -17,6 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('en'),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       title: 'ByteBankers App',
       theme: ThemeData(
         primaryColor: const Color.fromARGB(

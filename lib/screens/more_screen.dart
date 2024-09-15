@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/screens/account_screen.dart';
 import 'package:homepage/screens/bank_account_screen.dart';
-import 'package:homepage/screens/home_screen.dart'; // Import your other screens
+import 'package:homepage/screens/home_screen.dart';
 import 'package:homepage/screens/my_cards_screen.dart';
 import 'package:homepage/screens/statistics_screen.dart';
 
@@ -12,7 +12,7 @@ class MoreScreen extends StatefulWidget {
   _MoreScreenState createState() => _MoreScreenState();
 }
 
-class _MoreScreenState extends State<MoreScreen> {
+class _MoreScreenState extends State<MoreScreen> with TickerProviderStateMixin {
   int _currentIndex = 4; // Set initial index to More
 
   // List of screens for navigation
@@ -38,20 +38,33 @@ class _MoreScreenState extends State<MoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('More'),
-        leading: null,
+        title: const Text(
+          'More',
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: const Color(0xFF374577),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(16.0),
         children: [
-          // Profile Setting Section
-          const ListTile(
-            title: Text(
-              'Profile Setting',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+          // Animated Card for Profile Settings
+          Text(
+            'Profile Settings',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 57, 36, 132)),
           ),
-          ListTile(
-            title: const Text('Personal Info'),
+          const SizedBox(height: 10),
+
+          _buildAnimatedCard(
+            title: 'Personal Info',
+            icon: Icons.person,
+            subtitle: 'Manage your personal information',
             onTap: () {
               Navigator.push(
                 context,
@@ -61,99 +74,99 @@ class _MoreScreenState extends State<MoreScreen> {
               );
             },
           ),
-          ListTile(
-            title: const Text('Notification Preference'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Notification Preferences',
+            icon: Icons.notifications,
+            subtitle: 'Set your notification settings',
             onTap: () {
-              // Navigate to Notification Preference screen
+              // Navigate to Notification Preferences screen
             },
           ),
-          ListTile(
-            title: const Text('Security Setting'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Security Settings',
+            icon: Icons.lock,
+            subtitle: 'Manage your security options',
             onTap: () {
-              // Navigate to Security Setting screen
+              // Navigate to Security Settings screen
             },
           ),
-          ListTile(
-            title: const Text('Language & Theme'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Language & Theme',
+            icon: Icons.palette,
+            subtitle: 'Change language or theme',
             onTap: () {
               // Navigate to Language & Theme screen
             },
           ),
-          const Divider(),
-          // Services Section
-          const ListTile(
-            title: Text(
-              'Services',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+          const Divider(height: 40, color: Colors.grey),
+          Text(
+            'Services',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color(0xFF392484)),
           ),
-          ListTile(
-            title: const Text('Loans'),
+          const SizedBox(height: 10),
+          _buildAnimatedCard(
+            title: 'Loans',
+            icon: Icons.account_balance_wallet,
+            subtitle: 'Explore loan options',
             onTap: () {
               // Navigate to Loans screen
             },
           ),
-          ListTile(
-            title: const Text('Investments'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Investments',
+            icon: Icons.trending_up,
+            subtitle: 'Investment opportunities',
             onTap: () {
               // Navigate to Investments screen
             },
           ),
-          ListTile(
-            title: const Text('Insurance'),
-            onTap: () {
-              // Navigate to Insurance screen
-            },
+          const Divider(height: 40, color: Colors.grey),
+          Text(
+            'Customer Support',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 57, 36, 132)),
           ),
-          const Divider(),
-          // Customer Support Section
-          const ListTile(
-            title: Text(
-              'Customer Support',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          ListTile(
-            title: const Text('FAQs'),
+          const SizedBox(height: 10),
+          _buildAnimatedCard(
+            title: 'FAQs',
+            icon: Icons.help_outline,
+            subtitle: 'Frequently Asked Questions',
             onTap: () {
               // Navigate to FAQs screen
             },
           ),
-          ListTile(
-            title: const Text('Contact Us'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Contact Us',
+            icon: Icons.phone,
+            subtitle: 'Get in touch with us',
             onTap: () {
               // Navigate to Contact Us screen
             },
           ),
-          ListTile(
-            title: const Text('Feedback Form'),
+          const SizedBox(height: 20),
+          _buildAnimatedCard(
+            title: 'Feedback Form',
+            icon: Icons.feedback,
+            subtitle: 'Send us your feedback',
             onTap: () {
               // Navigate to Feedback Form screen
             },
           ),
-          const Divider(),
-          // About Us Section
-          ListTile(
-            title: const Text(
-              'About Us',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              // Navigate to About Us screen
-            },
-          ),
-          const Divider(),
-          // Logout
-          ListTile(
-            title: const Center(
-              child: Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+          const Divider(height: 40, color: Colors.grey),
+          _buildAnimatedCard(
+            title: 'Logout',
+            icon: Icons.logout,
+            isLogout: true,
             onTap: () {
               // Perform logout action
             },
@@ -163,8 +176,9 @@ class _MoreScreenState extends State<MoreScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromARGB(255, 68, 18, 78),
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: const Color(0xFF44124E),
+        unselectedItemColor: const Color(0xFF374577),
+        backgroundColor: const Color(0xFFEFF9F0),
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -176,6 +190,93 @@ class _MoreScreenState extends State<MoreScreen> {
               icon: Icon(Icons.account_balance), label: "Accounts"),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More"),
         ],
+      ),
+    );
+  }
+
+  // Helper function to create animated cards
+  Widget _buildAnimatedCard({
+    required String title,
+    required IconData icon,
+    String? subtitle,
+    required VoidCallback onTap,
+    bool isLogout = false,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          gradient: isLogout
+              ? LinearGradient(
+                  colors: [
+                    Colors.red.shade400,
+                    const Color.fromARGB(255, 229, 57, 53)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : const LinearGradient(
+                  colors: [Color(0xFF374577), Color(0xFF0093C9)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white, size: 30),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (subtitle != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        subtitle,
+                        style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Section title
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          color: Color(0xFF374577),
+        ),
       ),
     );
   }

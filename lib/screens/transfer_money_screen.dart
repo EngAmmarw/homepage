@@ -53,7 +53,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF00BBFF), // Dark Purple
+                Color(0xFF374577), // Blue
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -102,7 +113,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget _buildOptionButton(String label, IconData icon) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple[300],
+        backgroundColor: const Color(0xFF374577),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -195,7 +206,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+            backgroundColor: const Color(0xFF374577),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           ),
@@ -204,7 +215,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 68, 18, 78),
+            backgroundColor: const Color(0xFF374577),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           ),
